@@ -64,8 +64,9 @@ class _AnimatedCardState extends State<AnimatedCard> {
     setState(() {
       _selectedMaterials[material] = isChecked!;
     });
-    widget.onMaterialSelected(
-        _selectedMaterials); // Notificar la selección al padre
+
+    // Solo llamar al callback si el estado ha cambiado
+    widget.onMaterialSelected(Map.from(_selectedMaterials));
   }
 
   @override
@@ -136,8 +137,10 @@ class _AnimatedCardState extends State<AnimatedCard> {
                                 ),
                               ),
                               Expanded(
-                                child: ListView(
-                                  children: widget.materials.map((material) {
+                                child: ListView.builder(
+                                  itemCount: widget.materials.length,
+                                  itemBuilder: (context, index) {
+                                    final material = widget.materials[index];
                                     return CheckboxListTile(
                                       title: Text(material),
                                       value: _selectedMaterials[material],
@@ -145,7 +148,7 @@ class _AnimatedCardState extends State<AnimatedCard> {
                                         _onMaterialChecked(material, value);
                                       },
                                     );
-                                  }).toList(),
+                                  },
                                 ),
                               ),
                             ],

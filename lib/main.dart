@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './pages/about.dart';
 import './pages/contact.dart';
 import './pages/articlescreen.dart';
+import './screens/loginscreen.dart'; // Asegúrate de importar la pantalla de login
 
 void main() {
   runApp(const MyApp());
@@ -57,6 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person), // Ícono de usuario
+            tooltip: 'Login',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[

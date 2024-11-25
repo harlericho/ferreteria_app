@@ -39,7 +39,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _addCategoria() async {
     final nombre = await showCustomDialog(context, 'Nueva Categoría');
     if (nombre != null && nombre.isNotEmpty) {
-      await dbHelper.insertCategoria(Categoria(nombre: nombre));
+      final nombreMinuscula = nombre.toLowerCase();
+      await dbHelper.insertCategoria(Categoria(nombre: nombreMinuscula));
       _loadCategorias();
     }
   }
